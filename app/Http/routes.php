@@ -17,5 +17,14 @@
     Route::post('/createpost',
         ['uses'=>'PostController@postcreatepost','as'=>'creapost']
     );
-
+Route::get('/postdelete/{post_id}',
+        [
+            'uses'=>'PostController@getpostdelete',
+            'middleware' => 'auth',
+            'as'=>'postdelete']
+    );
+Route::get('/logout',[
+   'uses'=>'UserController@getlogout',
+    'as'=>'logout'
+]);
 
