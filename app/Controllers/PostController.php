@@ -27,7 +27,6 @@ class PostController extends Controller
         $posts=Post::orderBy('created_at','desc')->get();
         return view('dashboard',['posts'=>$posts]);
     }
-    
     public function getpostdelete($post_id)
     {
         $post=Post::where('id',$post_id)->first();
@@ -36,19 +35,5 @@ class PostController extends Controller
         }
         $post->delete();
         return redirect()->route('dashboard')->with(['message'=>'Post was successfully delete']);
-    }
-    public function ed(Request $request)
-    {
-
-        $this->validate($request,[
-           'body'=>'required'
-        ]);
-        $post=Post::find($request['postId']);
-        if(Auth::user() != $post->user){
-            return redirect()->back();
-        }
-        $post->body=$request['body'];
-        $post->update();
-        return response(['new_body'=>$post->body],200);
     }
 }
